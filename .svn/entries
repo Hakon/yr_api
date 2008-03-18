@@ -1,16 +1,16 @@
 8
 
 dir
-13
+14
 svn+ssh://zmalltalker@rubyforge.org/var/svn/irbno/yr/trunk
 svn+ssh://zmalltalker@rubyforge.org/var/svn/irbno
 
 
 
-2008-03-17T15:19:16.425821Z
-13
-augustzf
-
+2008-03-18T10:35:51.157211Z
+14
+zmalltalker
+has-props
 
 svn:special svn:externals svn:needs-lock
 
@@ -28,7 +28,7 @@ f977dea3-9d71-440f-9403-9e95996d87d9
 
 History.txt
 file
-
+13
 
 
 
@@ -43,7 +43,7 @@ dir
 
 Rakefile
 file
-
+13
 
 
 
@@ -59,10 +59,10 @@ file
 
 
 
-2008-03-17T14:38:14.000000Z
-c982f997acfcff9c2d8bec08f7a1d8fa
-2008-03-17T14:42:20.764799Z
-12
+2008-03-17T14:48:02.000000Z
+aad55070db8ff22c1fb20bd01714790f
+2008-03-18T10:35:51.157211Z
+14
 zmalltalker
 
 tasks
@@ -76,7 +76,7 @@ dir
 
 License.txt
 file
-
+13
 
 
 
@@ -88,7 +88,7 @@ zmalltalker
 
 setup.rb
 file
-
+13
 
 
 
@@ -106,6 +106,10 @@ dir
 
 doc
 dir
+
+
+
+delete
 
 lib
 dir
@@ -119,9 +123,9 @@ file
 
 
 
-2007-09-27T10:26:14.000000Z
-3cd5238e3a69ef74d1ce026eca05cf55
-2007-09-27T10:26:15.579418Z
-4
+2008-03-18T10:24:59.000000Z
+87dc751bd4ae577b767f69ca5972c6d0
+2008-03-18T10:35:51.157211Z
+14
 zmalltalker
 

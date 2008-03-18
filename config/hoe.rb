@@ -1,16 +1,16 @@
 require 'yr/version'
 
-AUTHOR = 'FIXME full name'  # can also be an array of Authors
-EMAIL = "FIXME email"
-DESCRIPTION = "description of gem"
+AUTHOR = 'Marius Mathiesen'  # can also be an array of Authors
+EMAIL = "marius (at) shortcut.no"
+DESCRIPTION = "Gem to access Norwegian weather API yr.no"
 GEM_NAME = 'yr' # what ppl will type to install your gem
-RUBYFORGE_PROJECT = 'yr' # The unix name for your project
+RUBYFORGE_PROJECT = 'irbno' # The unix name for your project
 HOMEPATH = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
 DOWNLOAD_PATH = "http://rubyforge.org/projects/#{RUBYFORGE_PROJECT}"
 
 @config_file = "~/.rubyforge/user-config.yml"
 @config = nil
-RUBYFORGE_USERNAME = "unknown"
+RUBYFORGE_USERNAME = "zmalltalker"
 def rubyforge_username
   unless @config
     begin

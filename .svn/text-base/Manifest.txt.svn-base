@@ -11,3 +11,6 @@ lib/yr/place.rb
 lib/yr/symbol.rb
 lib/yr/wind.rb
 log/debug.log
+config/places.txt
+config/places.yml
+tasks/yr.rake

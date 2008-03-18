@@ -13,3 +13,10 @@ task :fetch_places do
   end
   File.open("config/places.yml","w"){|f| f.write(YAML::dump(places))}
 end
+
+
+desc "Update the website"
+task :update_web => :docs do
+  system("cp -R doc irbno/yr/")
+  system("rsync -av --delete irbno zmalltalker@rubyforge.org:/var/www/gforge-projects")
+end
