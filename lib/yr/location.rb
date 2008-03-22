@@ -11,10 +11,9 @@ module Yr
     end
     
     def load_xml_doc
-      @xml = open(url).read
+      @doc = Raw::Locationforecast.parse(:lat => @latitude, :lon => @longitude)
       @details = []
-      parser = XML::Parser.string(@xml).parse
-      parser.find('//product/time').each do |node|
+      @doc.search('product time').each do |node|
         time_range = Time.xmlschema(node[:from])..Time.xmlschema(node[:to])
         if t = @details.select{|t| t.time_range == time_range}.first
           time = t
@@ -25,33 +24,28 @@ module Yr
         end
         
         unless @altitude
-          if loc = node.find_first('//location')
+          if loc = node.at('location')
             @altitude = loc[:altitude]
           end
         end
-        if wd = node.find_first('//windDirection')
+        if wd = node.at('windDirection')
           time.wind ||= Wind.new
           time.wind.direction = wd[:def].to_f
         end
-        if ws = node.find_first('//windSpeed')
+        if ws = node.at('windSpeed')
           time.wind ||= Wind.new
           time.wind.speed_name = ws[:name]
           time.wind.speed_mps = ws[:mps].to_f
         end
-        if temp = node.find_first('//temperature')
+        if temp = node.at('temperature')
           time.temperature = temp[:value].to_f
         end
         
-        if sym = node.find_first('//symbol')
+        if sym = node.at('symbol')
           s = Symbol.new(sym[:number], sym[:id])
           time.symbol = s
         end
       end
     end
-    
-    def url
-      "http://api.yr.no/weatherapi/locationforecast/1.4/?lat=#{@latitude};lon=#{@longitude}"
-    end
-    
   end
 end

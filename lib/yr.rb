@@ -13,7 +13,6 @@ require 'yr/detail'
 require 'yr/symbol'
 require 'yr/wind'
 require 'yr/location'
-require 'xml/libxml'
 module Yr
   
 end
