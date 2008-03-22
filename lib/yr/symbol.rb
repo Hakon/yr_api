@@ -7,7 +7,7 @@ module Yr
     end
     
     def icon
-      "http://api.yr.no/weatherapi/weathericon/1.0/?symbol=#{number};content_type=image/png"
+      Yr::Raw::Weathericon.build(:symbol => number, :content_type => "image_png").to_s
     end
   end
 end
