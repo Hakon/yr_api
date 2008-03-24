@@ -2,3 +2,5 @@
 doc
 irbno
 .DS_Store
+.gemified
+yr_api*.gem
