@@ -9,6 +9,7 @@ lib/yr/forecast.rb
 lib/yr/location.rb
 lib/yr/place.rb
 lib/yr/symbol.rb
+lib/yr/raw.rb
 lib/yr/wind.rb
 log/debug.log
 config/places.txt
