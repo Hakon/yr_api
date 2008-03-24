@@ -31,3 +31,5 @@ The source is found at http://gitorious.org/projects/yr-api
 * To install this code:
     
     gem install yr_api
+    
+Thanks to judofyr for cleaning up!
