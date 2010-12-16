@@ -47,7 +47,7 @@ module Yr
     Forestfireindex = Base.new(:forestfireindex, 1.0)
     Geosatellite = Base.new(:geosatellite, 1.1)
     Icemap = Base.new(:icemap, 1.0)
-    Locationforecast = Base.new(:locationforecast, 1.4)
+    Locationforecast = Base.new(:locationforecast, 1.8)
     Mountaineasterobservations = Base.new(:mountaineasterobservations, 1.0)
     Polarsatellite = Base.new(:polarsatellite, 1.0)
     Radar = Base.new(:radar, 1.1)
