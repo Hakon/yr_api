@@ -16,7 +16,7 @@ module Yr
     end
 
     def weather_url
-      "http://www.yr.no/sted/Norge/#{fylke.capitalize}/#{kommune.capitalize}/#{sted.capitalize}/varsel.xml"
+     "http://www.yr.no/sted/Norge/#{URI.encode(fylke.capitalize)}/#{URI.encode(kommune.capitalize)}/#{URI.encode(sted.capitalize)}/varsel.xml"
     end
 
     def forecast_for(time)
