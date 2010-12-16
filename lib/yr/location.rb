@@ -10,17 +10,21 @@ module Yr
       return details.sort{|a, b| a.from <=> b.from}.first
     end
     
+    def details
+      @details ||= load_xml_doc
+    end
+    
     def load_xml_doc
       @doc = Raw::Locationforecast.parse(:lat => @latitude, :lon => @longitude)
-      @details = []
+      details = []
       @doc.search('product time').each do |node|
         time_range = Time.xmlschema(node[:from])..Time.xmlschema(node[:to])
-        if t = @details.select{|t| t.time_range == time_range}.first
+        if t = details.select{|t| t.time_range == time_range}.first
           time = t
         else
           time = Detail.new
           time.time_range = time_range
-          @details << time
+          details << time
         end
         
         unless @altitude
@@ -46,6 +50,9 @@ module Yr
           time.symbol = s
         end
       end
+      
+      details
     end
+    
   end
 end
