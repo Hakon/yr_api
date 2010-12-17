@@ -1,57 +1,63 @@
 module Yr
   class Location
-    attr_reader :altitude, :details
+    attr_reader :altitude, :details, :doc
     def initialize(lat, lng)
       @latitude     = lat
       @longitude    = lng
     end
     
     def current_weather
-      return details.sort{|a, b| a.from <=> b.from}.first
+      return details_hash[Time.now.change(:min => 0, :sec => 0, :usec => 0)]
+    end
+    
+    def details_hash
+      @details ||= parse_time_slots(doc)
     end
     
     def details
-      @details ||= load_xml_doc
+      details_hash.values
     end
     
-    def load_xml_doc
-      @doc = Raw::Locationforecast.parse(:lat => @latitude, :lon => @longitude)
-      details = []
-      @doc.search('product time').each do |node|
-        time_range = Time.xmlschema(node[:from])..Time.xmlschema(node[:to])
-        if t = details.select{|t| t.time_range == time_range}.first
-          time = t
-        else
-          time = Detail.new
-          time.time_range = time_range
-          details << time
-        end
+    def doc
+      @doc ||= Raw::Locationforecast.parse(:lat => @latitude, :lon => @longitude)
+    end
+    
+    protected
+    
+    def parse_time_slots(document)
+      time_hash = {}
+      time_slots = @doc.search('product time')
+      time_slots.each do |node|
+        hour = Time.at(Time.xmlschema(node[:from]) - Time.zone_offset("CET"))
+        detail = time_hash[hour] ||= Detail.new
+        detail.time_range = hour..hour #This should really be fixed. keeping it for backwards compatability
         
         unless @altitude
-          if loc = node.at('location')
-            @altitude = loc[:altitude]
-          end
-        end
-        if wd = node.at('windDirection')
-          time.wind ||= Wind.new
-          time.wind.direction = wd[:def].to_f
-        end
-        if ws = node.at('windSpeed')
-          time.wind ||= Wind.new
-          time.wind.speed_name = ws[:name]
-          time.wind.speed_mps = ws[:mps].to_f
-        end
-        if temp = node.at('temperature')
-          time.temperature = temp[:value].to_f
+          loc = node.at("location")
+          @altitude = loc[:altitude] if(loc)
         end
         
+        if(wd = node.at("windDirection"))
+          detail.wind ||= Wind.new
+          detail.wind.direction = wd[:def].to_f
+        end
+        
+        if ws = node.at('windSpeed')
+         detail.wind ||= Wind.new
+         detail.wind.speed_name = ws[:name]
+         detail.wind.speed_mps = ws[:mps].to_f
+        end
+        
+        if temp = node.at('temperature')
+         detail.temperature = temp[:value].to_f
+        end
+
         if sym = node.at('symbol')
-          s = Symbol.new(sym[:number], sym[:id])
-          time.symbol = s
+         s = Symbol.new(sym[:number], sym[:id])
+         detail.symbol = s
         end
       end
-      
-      details
+      time_hash
     end
     
   end
